@@ -1,0 +1,761 @@
+%% Thesis Template of Nanjing University
+%%   for using NJUthesis package with LaTeX2e
+%%
+%% Created by Wenbo Yang <http://solrex.org>
+%% Homepage: http://share.solrex.org/njuthesis/
+%%
+%% $Id: template.tex,v 0.2 2010/05/01 Exp $
+
+
+\documentclass[dvipdfm, oneside, master]{NJUthesis}
+%\documentclass[10pt]{article}
+
+% 可选参数：
+%   nobackinfo 取消封二页导师签名信息
+%   oneside/twoside 单面/双面打印
+%   phd/master 博士/硕士论文
+% 下面三个选一个：
+% dvipdfm 使用 dvipdfm(x) 生成最终的 PDF 文档 (缺省设置，不建议修改）
+% dvips 使用 dvips 生成最终的 PS 文档
+% pdftex 使用 pdfLaTeX 生成最终的 PDF 文档
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 导言区
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 小节标题靠左对齐
+\CTEXsetup[format+={\flushleft}]{section}
+
+% 设置链接颜色
+\hypersetup{
+% pdf 属性
+             pdftitle={LaTeX Thesis Template of Nanjing University}, %
+            pdfauthor={Wenbo Yang}
+}
+
+% 表格
+\usepackage{longtable, multirow}
+% 英文使用 Times 字体
+\usepackage{times}
+% 源代码
+\usepackage{fancyvrb}
+% 自定义列表样式
+\usepackage{enumitem}
+\usepackage{epsf}
+\newtheorem{lemma}{引理}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 封面部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 国家图书馆封面内容字符串
+% 仅博士需要填写并保证模板参数选择了 phd
+\classification{}
+\confidential{}
+\UDC{}
+\titlelinea{南京大学学位论文}
+\titlelineb{~\LaTeX{}~模板}
+\titlelinec{}
+\advisorinfo{南京大学~数学系}
+\chairman{XXX 教授}
+\reviewera{某某某某　副研究员}
+\reviewerb{XXX 教授}
+\reviewerc{XXX 教授}
+\reviewerd{XXX 教授}
+\nlcfootdate{2010~年~5~月~1~日}
+
+% 南大中文封面内容字符串
+\title{环面Dimer覆盖数的2-进性质及覆盖数计算法的推广}
+\author{惠慧}
+\studentnum{~MG0821009}
+\grade{2011}
+\major{基础数学}
+\researchfield{代数数论}
+\advisor{郭学军~~教授}
+\footdate{2011~年~4~月}
+\submitdate{2011~年~5~月~10~日}
+\defenddate{2011~年~5~月~31~日}
+
+% 英文封面内容字符串
+\englishtitle{One Property of Dimer Covering On Tyre Face And The Computation of Number about $1\times4$ Tetramer Covering on Planar}
+\englishauthor{Hui Hui}
+\englishadvisor{Professor Xuejun Guo}
+\englishinstitute{Mathematics Department\\
+ Nanjing University}
+\englishdegree{Master}
+\englishmajor{Pure Mathematics}
+\englishdate{May 2010}
+
+% 制作封面命令
+\maketitle
+
+% 制作英文封面命令
+\makeenglishtitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 前言部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+
+% 中文摘要
+\begin{abstract}
+
+本文对二维面上的多聚物覆盖数的代数性质作了两个方面的探讨。在文献[\citenjupr{Kasteleyn}]中，作者对二维二次格二聚物
+完全覆盖给出了严格的结果。在此基础之上本文对环面上的结果在2进数下的代数性质给出计算。第二部分对平面上
+的$1\times 4$的四聚物覆盖给出讨论，据此提出有趣的矩阵内维数的概念。
+
+\keywords{Dimer; Tetramer; 内维数}
+
+\end{abstract}
+
+% 英文摘要
+\begin{englishabstract}
+
+This paper discusses two aspects of algebraic properties about polymer covering on two-dimensional face.
+In biblography[\citenjupr{Kasteleyn}],author have given a rigorous solution to combinatorial problem for a very special
+case,viz.that of a two-dimensional quadratic lattice,completely covered with dimers.On the base of it,this
+article gives the computation of number on tyre face on the 2-adic situation.Then,on the second section,I
+discuss the problem that is about the computation of number of covering on quartic lattice by $1\times4$ tetramer,
+and then raise the interesting notion inner dimension of matrix.
+
+\englishkeywords{Dimer; Tetramer; Inner Dimension}
+
+\end{englishabstract}
+
+% 生成目录命令
+\tableofcontents
+
+% 以下两个目录可根据具体情况注释掉
+% 生成表格目录命令
+%\listoftables
+% 生成插图目录命令
+%\listoffigures
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 正文部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+\chapter{环面覆盖数2进性质}
+
+$Kasteleyn$在文章$[$\citenjupr{Kasteleyn}$]$中提到矩形平面和环面上$dimer$覆盖数的计算方法，而说对于一般的覆盖问题
+是很难找到通解的，至于三维空间中的覆盖问题更是遥不可及。从$Kasteleyn$这篇影响深远的文章发表以来，这个在物理化学
+界的热点问题引起了数学界的浓厚兴趣，近年来数学家们开始用代数几何，组合，概率的方法对此问题做了渐深的探讨，一些
+与椭圆曲线，模形式相联系。问题非常的多，$James Propp$综合了一些问题在文献$[$\citenjupr{JP}$]$中提出了32个问题，文献
+ $[$\citenjupr{HMJ}~$]$中提出了两个猜测与三个公开问题。可见这个方向可以研究的问题很多。这里设法对一些问题进行探讨。
+ $Dimer$覆盖数，对于矩形平面为$2n\times 2n$的情况，文章$[$\citenjupr{Cohn}$]$中给出了
+$\prod\limits_{i=1}^{n}\prod\limits_{j=1}^{n} (4 cos^{2}{\pi i/(2n+1)}+4 cos^{2}{\pi j/(2n+1)})=2^{n}f(n)^{2}.f(n)$是奇整数的证明，对于环面的情形没有给出计算，本文就$2t\times 2t$情形对环面$dimer$覆盖数中的每一个和式单项进行一些类似的计算。
+\begin{enumerate}
+\item 计算：
+
+$Z^{(t)}_{mn}(Z,Z^{'})=\frac{1}{2}\prod\limits_{k=1}^{\frac{1}{2}m}\prod\limits_{l=1}^{n} 2[z^{2}sin^{2}\{2k\pi/m\}+ {z^{'}}^{2}sin^{2}\{(2l-1)\pi/n\}]^{\frac{1}{2}}$
+
+$+\frac{1}{2}\prod\limits_{k=1}^{\frac{1}{2}m}\prod\limits_{l=1}^{n} 2[z^{2}sin^{2}\{(2k-1)\pi/m\}+{z^{'}}^{2}sin^{2}\{2l\pi/n\}]^{\frac{1}{2}}$
+
+$+\frac{1}{2}\prod\limits_{k=1}^{\frac{1}{2}m}\prod\limits_{l=1}^{n} 2[z^{2}sin^{2}\{(2k-1)\pi/m\}+ {z^{'}}^{2}sin^{2}\{(2l-1)\pi/n\}]^{\frac{1}{2}}$
+
+$\stackrel{\mathrm{m=n=2t}}{=}\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{2t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{t}}^{l}-{\zeta_{t}}^{-l}]^{\frac{1}{2}}$
+
+$+\frac{1}{2}\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{2t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{2t}}^{2l-1}-{\zeta_{2t}}^{1-2l}]^{\frac{1}{2}}$
+
+$=\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{t}}^{l}-{\zeta_{t}}^{-l}]^{1)}$
+
+$+\frac{1}{2}\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{2t}}^{2l-1}-{\zeta_{2t}}^{1-2l}]^{2)}$\\\\
+
+
+下面对$1),2)$分别进行讨论。为了方便讨论，令$2t=2^{r}m$,$m$是奇数。\\
+
+
+
+
+先看$1),1)=\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{t}}^{l}-{\zeta_{t}}^{-l}]$
+
+\begin{lemma}
+$Q_{2}(\zeta_{2^{r}m})/Q_{2}$扩张的分歧指数$e=\varphi(2^{r})$,令$s$是满足$2^{s}\equiv 1(mod m)$的最小正整数,则剩余类域次数$f=s$。
+\end{lemma}
+
+证明：令$s$是满足$p^{s}\equiv 1(mod m)$的最小正整数,$e(Q_{p}(\zeta_{p^{r}m})/Q_{p})=p^{r-1}(p-1),f(Q_{p}(\zeta_{p^{r}m})/Q_{p})=s$
+($[$\citenjupr{feng}$]$,p297).
+取$p=2$,即得。
+
+$\hspace{2em}$为了方便起见，下面在不产生歧义的情况下用$\zeta$代表$\zeta_{2t}$.计$2-adic$赋值$(Q_{2},2)$在扩域$Q_{2}(\zeta_{2^{r}m})$中的扩充为
+$(Q_{2}$
+$(\zeta_{2^{r}m}),\emph{P}).$
+考虑$4-{\zeta}^{2k-1}-{\zeta}^{1-2k}-{\zeta}^{2l}-{\zeta}^{-2l}$的
+$\emph{P}-adic$指数。$norm(\zeta)=\pm\zeta^{2^{2r-2}(2^s-1)}=1$或$-1$,所以$v_{\emph{P}}(\zeta)=0$,
+$\zeta$在剩余类域的乘法群中的阶为$m$，且有$v_{\emph{P}}(1-\zeta^{m})=1/2^{r-1}$.
+进而有
+
+$\hspace{2em}$$\left\{\begin{array}{lcl}
+                           v_{P}(1-\zeta^{2^{i}jm})=1/2^{r-i-1},i<r,\\
+                           v_{P}(1-\zeta^{2^{i}jm})=\infty,i\geq r\end{array}\right.$
+$j$是奇数
+
+$\hspace{2em}$先来看$4-{\zeta}^{2k-1}-{\zeta}^{1-2k}-{\zeta}^{2l}-{\zeta}^{-2l}$
+的非整数项
+
+$\hspace{2em}$${\zeta}^{2k-1}+{\zeta}^{1-2k}+{\zeta}^{2l}+{\zeta}^{-2l}$
+
+$\hspace{1em}$$=\zeta^{2l}(1+\zeta^{2k-2l-1})(1+\zeta^{-2k-2l+1})$
+
+$\hspace{1em}$$=\zeta^{2l}(1-\zeta^{2^{r-1}m+2k-2l-1})(1-\zeta^{2^{r-1}m-2k-2l+1})
+,1\leq k,l\leq 2^{r-1}m $.
+
+$\hspace{2em}$当$r=1$时，$2^{r-1}=1$,此时$2^{r-1}m+2k-2l-1$或者$2^{r-1}m-2k-2l+1$是可以取到
+$2^{i}jm:i\geq r$的，所以$v_{\emph{P}}(1-\zeta^{2^{r-1}m+2k-2l\pm1})=\infty$是存在的，即$1-\zeta^{2^{r-1}m+2k-2l\pm1}=0$。当且仅当$2k-2l-1=j^{'}m$或者$2k+2l-1=j^{'}m,j^{'}$是奇数时，
+$v_{\emph{P}}(4-{\zeta}^{2k-1}-{\zeta}^{1-2k}-{\zeta}^{2l}-{\zeta}^{-2l})=2$，满足此条件的$(l,k)$的取值为:\\
+
+$\hspace{2em}$$\{(l,k)\mid k=2l+m+1$或$k=-2l+m+1,l=1,\cdots,(m-1)/2\}$,\\
+
+$\hspace{2em}$$\{(l,k)\mid k=2l-m+1$或$k=-2l+3m+1,l=(m+1)/2,\cdots,m\}$。\\
+
+对后面集合，当$l=m$时，
+$2l-m+1=-2l+3m+1$,所以共有$2m-1$对，得到$2t=2m$时\\
+
+$\hspace{2em}v_{2}(\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{t}}^{l}-{\zeta_{t}}^{-l}])=4m-2$.\\
+
+此时,
+
+$\hspace{2em}$$1)=\prod\limits_{k=1}^{m}\prod\limits_{l=1}^{(m-1)/2}[4-{\zeta_{2m}}^{2k-1}-{\zeta_{2m}}^{1-2k}-{\zeta_{m}}^{l}-{\zeta_{m}}^{-l}]^{2}$
+
+$\hspace{2em}$$\prod\limits_{k=1}^{m}[2-{\zeta_{2m}}^{2k-1}-{\zeta_{2m}}^{1-2k}]$,\\
+
+而其中的乘积项
+
+$\hspace{2em}$$\prod\limits_{k=1}^{m}[2-{\zeta_{2m}}^{2k-1}-{\zeta_{2m}}^{1-2k}]$\\
+
+$\hspace{1em}$$=\prod\limits_{k=1}^{m}[1-{\zeta_{2m}}^{2k-1}][1-{\zeta_{2m}}^{1-2k}]$\\
+
+$\hspace{1em}$$=\prod\limits_{k=1}^{m}[1-{\zeta_{2m}}^{2k-1}]^{2}$,\\
+
+$\prod\limits_{k=1}^{t}[1-{\zeta_{2t}}^{2k-1}]$在$Q(\zeta_{2t})/Q$的$galois$群作用下不变，知其属于$Q$,所以是整数，
+因此$\prod\limits_{k=1}^{m}[2-{\zeta_{2m}}^{2k-1}-{\zeta_{2m}}^{1-2k}]$是完全平方数,由此得到$1)=2^{4m-2}f(m)^{2},f(m)$是奇数。\\
+
+$\hspace{2em}$当$r>1$时，$2^{r-1}m+2k-2l-1$或者$2^{r-1}m-2k-2l+1$中不能分离出偶数项来，
+令$2^{r-1}m\pm 2k-2l-1=2^{i}jm,i$只能取到$0$,从而$v_{\emph{P}}(1-\zeta^{2^{r-1}m\pm 2k-2l-1})=1/2^{r-1}$或者$0$.
+由$2k-2l-1=j^{'}m=(2j+1)m$,得到$k=jm+(m+1)/2+l$.由$k$的取值情况得到$1\leq jm+(m+1)/2+l\leq 2^{r-1}m,$
+根据$l$的取值不同对$j$的值进行分类：
+
+$\hspace{1em}$$1\leq l\leq (m-1)/2:0\leq j\leq 2^{r-1}-1,$
+
+$\hspace{1em}$$(m+1)/2\leq l\leq (3m-1)/2:-1\leq j\leq 2^{r-1}-2,$
+
+$\hspace{1em}$$\cdots,$
+
+$\hspace{1em}$$(2^{r-1}-2)m+(m+1)/2\leq l\leq (2^{r-1}-2)m+(3m-1)/2:1-2^{r-1}\leq j\leq 0,$
+
+$\hspace{1em}$$(2^{r-1}-2)m+(3m+1)/2\leq l\leq 2^{r-1}m:-2^{r-1}\leq j\leq-1$.\\\\
+共有$2^{r-1}2^{r-1}m$种取值。同样对$-2k-2l-1=j^{'}m=(2j+1)m$也共有$2^{r-1}2^{r-1}m$种$(k,l)$取值方法，所以
+$v_{2}(1))=\displaystyle{\frac{1}{2^{r-1}}} (2^{r-1}2^{r-1}m+2^{r-1}2^{r-1}m)=2^{r}m$,由此得到$1)=2^{2^{r}m}f(m,r)^{2},f(m,r)$是奇数。
+
+$\hspace{2em}$再看$2)$,\\
+
+
+
+$\hspace{2em}2)=2^{t-1}\prod\limits_{k=1}^{t}[2-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}]^{b1)}\prod\limits_{1\leq k<l\leq t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{2t}}^{2l-1}-{\zeta_{2t}}^{1-2l}]^{2^{b2)}}$.
+
+其中乘积项$\prod\limits_{1\leq k<l\leq t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{2t}}^{2l-1}-{\zeta_{2t}}^{1-2l}]$
+在$Q(\zeta_{2t})/Q$的$galois$群作用下不变，
+知其属于$Q$,所以是整数，所以$b2)$是完全平方数。
+下面来计算一下$2-adic$指数，前面得到
+
+$\hspace{2em}$$\{v_{\emph{P}}(1-\zeta^{2^{i}jm})=1/2^{r-i-1},i<r,j:$奇数$\},$\\
+
+$\hspace{2em}$$b1)=\prod\limits_{k=1}^{t}[2-{\zeta}^{2k-1}-{\zeta}^{1-2k}]$\\
+
+$\hspace{1em}$$=\prod\limits_{k=1}^{2^{r-1}m}[2-{\zeta}^{2k-1}-{\zeta}^{1-2k}]$\\
+
+$\hspace{1em}$$=\prod\limits_{k=1}^{2^{r-1}m}[1-{\zeta}^{2k-1}]^{2}$，\\
+
+可得$v_{\emph{P}}(\prod\limits_{k=1}^{2^{r-1}m}[1-{\zeta}^{2k-1}]^{2})=2$.\\
+
+对2)的非整数项进行因式分解
+
+$\hspace{2em}$${\zeta}^{2k-1}+{\zeta}^{1-2k}+{\zeta}^{2l-1}+{\zeta}^{1-2l}$\\
+
+$\hspace{1em}$$={\zeta}^{2l-1}({\zeta}^{2k-2l}+{\zeta}^{2-2k-2l}+1+{\zeta}^{2-2l-2l})$\\
+
+$\hspace{1em}$$={\zeta}^{2l-1}({\zeta}^{2k-2l}+1)({\zeta}^{2-2k-2l}+1)$\\
+
+$\hspace{1em}$$={\zeta}^{2l-1}(1-{\zeta}^{2^{r-1}m+2k-2l})(1-{\zeta}^{2^{r-1}m+2-2k-2l})$\\
+
+$\hspace{2em}$当$r=1$时，$2^{r-1}m+2k-2l$或$2^{r-1}m+2-2k-2l$是奇数，所以$(1-\zeta^{2^{r-1}m+2k-2l})\neq 0$,当$2k-2l=j'm,j'$为偶数时，有$v_{\emph{P}}(1-\zeta^{2^{r-1}m+2k-2l})=1$,对于$1\leq k\leq l\leq m$,取不到$k-l=j'm$.在$1\leq k\leq l\leq m$内，$2^{r-1}m+2-2k-2l$取到$j'm$的情况共有$(m-1)/2$种，所以$v_{2}
+(\frac{1}{2}\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta}^{2k-1}-{\zeta}^{1-2k}
+-{\zeta}^{2l-1}-{\zeta}^{1-2l}])=2m$.
+
+$\hspace{2em}$当$r>1$时，$2^{r-1}m+2k-2l$或$2^{r-1}m+2-2k-2l$是偶数，首先考虑$2^{r-1}m+2k-2l$是$m$倍数的情形，即$k-l=j'm$。对$k$的取值不同得到$l$的取值分类：
+
+$\hspace{2em}$$k=1:l=1,m+1,2m+1,...(2^{r-1}-1)m+1$;
+
+$\hspace{2em}$$k=2:l=2,m+2,2m+2,...(2^{r-1}-1)m+2$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=m:l=m,2m,3m,...2^{r-1}m$;
+
+$\hspace{2em}$$k=m+1:l=1,m+1,2m+1,3m+1,...(2^{r-1}-1)m+1$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=2^{r-1}m:l=m,...,(2^{r-1}-1)m,2^{r-1}m$.
+
+将
+
+$\hspace{2em}$$2^{r-1}m+2k-2l=j'2^{r}m$
+
+单独列出。由于
+
+$\hspace{2em}$$1-2^{r-1}m\leq k-l\leq 2^{r-1}m-1$，
+
+所以
+
+$\hspace{2em}$$2^{r-1}m+2-2^{r}m\leq 2^{r-1}m+2k-2l\leq 2^{r-1}m+2^{r}m-2,$
+
+$j'$只能取到$0,1$.\\
+
+令
+
+$\hspace{2em}$$2^{r-1}m+2k-2l=0$,
+
+则
+
+$\hspace{2em}$$k-l=-2^{r-2}m$.\\
+根据$k$的取值得到$l$的取值
+
+$\hspace{2em}$$k=1:l=1+2^{r-2}m$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=2^{r-2}m:l=2^{r-1}m$
+
+共$2^{r-2}m$种情形。而
+
+$\hspace{2em}$$2^{r-1}m+2k-2l=1$
+
+刚好是上面$l$和$k$交换的情形。
+
+$\hspace{2em}$再考虑$2^{r-1}m+2-2k-2l$是$m$倍数的情形，即
+
+$\hspace{2em}$$\hspace{2em}$$k+l-1=j'm$\\
+根据$k$的取值得到$l$的取值：
+
+$\hspace{2em}$$k=1:l=m,2m,...,2^{r-1}m$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=2^{r-1}m:l=1,...,(2^{r-1}-1)m+1$
+
+将
+
+$\hspace{2em}$$2^{r-1}m+2-2k-2l=j'2^{r}m$
+
+单独列出，\\
+由于
+
+$\hspace{2em}$$-2^{r}m\leq -k-l\leq -2$，
+
+所以
+
+$\hspace{2em}$$2^{r-1}m+2-2^{r+1}m\leq 2^{r-1}m+2-2k-2l\leq 2^{r-1}m-2,$\\
+
+$j'$只能取到$0,-1$.令
+
+$\hspace{2em}$$2^{r-1}m+2-2k-2l=0$,
+
+则
+
+$\hspace{2em}$$k+l=2^{r-2}m+1$.
+
+对$k$的取值分类，
+
+$\hspace{2em}$$k=1:l=2^{r-2}m$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=2^{r-2}m:l=1$.
+
+令
+
+$\hspace{2em}$$2^{r-1}m+2-2k-2l=-2^{r}m$,
+
+则
+
+$\hspace{2em}$$k+l=2^{r-2}m+2^{r-1}m+1$.
+
+$\hspace{2em}$$k=2^{r-2}m+1:l=2^{r-1}m$;
+
+$\hspace{2em}$...
+
+$\hspace{2em}$$k=2^{r-1}m:l=2^{r-2}m+1$;\\
+
+现在上面情况下
+
+$\hspace{2em}$$v_{\emph{P}}(4-\zeta^{2k-1}-\zeta^{1-2k}-\zeta^{2l-1}-\zeta^{1-2l})=2$\\
+
+分离出2的阶数为$2^{r+1}m$,除此，剩余的情况先看
+
+$\hspace{2em}$$2^{r-1}m+2k-2l=j'm$
+
+分离出来的$2$的阶数。对$k$的情况进行分别讨论：
+
+$\hspace{2em}$$k=1:l=1,m+1,2m+1,...\overline{1+2^{r-2}m},...,(2^{r-1}-1)m+1$,
+
+此时
+
+$\hspace{2em}$$2^{r-1}m+2k-2l=2^{r-1}m,2^{r-1}m-2m,2^{r-1}m-4m,...,2^{r-1}m-(2^{r}-2)m$.\\
+
+得到
+
+$\hspace{2em}$$1-\zeta^{2^{r-1}m},1-\zeta^{2^{r-1}m-2m},...,\overline{0},...,1-\zeta^{2^{r-1}m-(2^{r}-2)m}$\\
+
+所有的阶数为
+
+$\hspace{2em}$$1+\frac{1}{2^{r-2}}2^{r-3}+\frac{1}{2^{r-3}}2^{r-4}+...\frac{1}{2}+\frac{1}{2}+...+\frac{1}{2^{r-2}}2^{r-3}=r-1$.
+
+$\hspace{2em}$...，
+
+$\hspace{2em}$$k=m:l=m,2m,3m,...,\overline{m+2^{r-2}m},...,(2^{r-1})m$,
+
+得到阶数为$r-1$.$m$项合计得到$2$的阶数为$(r-1)m$
+
+$\hspace{2em}$$k=m+1:l=1,m+1,2m+1,3m+1,...,\overline{m+1+2^{r-2}m},...,(2^{r-1}-1)m+1$,
+
+此时得到
+
+$\hspace{2em}$$1-\zeta^{2^{r-1}m+2m},1-\zeta^{2^{r-1}m},...,\overline{0},...,1-\zeta^{2^{r-1}m-(2^{r}-4)m}$.
+
+所有阶数仍然为$r-1$
+
+$\hspace{2em}$...，
+
+如此得到$2$的阶数和为$(r-1)2^{r-1}m$。\\
+
+再看
+
+$\hspace{2em}$$1-\zeta^{2^{r-1}m+2-2k-2l}=0$
+
+时,由$1-\zeta^{2^{r-1}m+2k-2l}$造成的$2$的若干阶数也是要排除掉的，此种情况如下：
+
+$\hspace{2em}$$\left\{\begin{array}{lcl}
+k+l=2^{r-2}m+1 &$或$& 2^{r-2}m+2^{r-1}m+1 \\
+k-l=jm
+\end{array}\right.$
+
+得到$r=2$时，$j=0$，$k,l$取值为$2$重。
+
+$\hspace{2em}$$r>2$时，$j$的取值为
+
+$\hspace{2em}$$-(2^{r-2}-1),...,-1,1,...,2^{r-2}-1$，
+
+$j$取奇数对应于的$l，k$取值对每个$j$为二重。
+得到这部分产生的$2$的阶数为$2$,再看
+
+$\hspace{2em}$$2^{r-1}m+2-2k-2l=j'm$
+
+分离出来的$2$的阶数,显然得到和上面的一样阶数，所以合计得到$2$的阶数为
+$2^{r+1}m+(r-1)2^{r}m-4$,所以$2)$的阶数为$2^{r+1}m+(r-1)2^{r}m-5$。
+
+\item 结论：
+
+$\hspace{2em}$将上述计算作为结论列举如下：
+
+$\hspace{2em}$$\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}-{\zeta_{t}}^{l}-{\zeta_{t}}^{-l}]
+=\left\{\begin{array}{lcl}2^{4m-2}f(m,r)^{2}:t=m\\
+2^{2^{r}m}f(m,r)^{2}:t=2^{r-1}m \end{array}\right.$
+
+
+
+$\hspace{2em}$$\frac{1}{2}\prod\limits_{k=1}^{t}\prod\limits_{l=1}^{t}[4-{\zeta_{2t}}^{2k-1}-{\zeta_{2t}}^{1-2k}
+-{\zeta_{2t}}^{2l-1}-{\zeta_{2t}}^{1-2l}]=
+\left\{ \begin{array} {lcl}2^{2m}f(m,r)^{2}:t=m\\
+2^{2^{r+1}m+(r-1)2^{r}m-5}f(m,r)^{2}:\\
+t=2^{r-1}m
+\end{array}\right.$
+上述中的$f(m,r)$都是奇数。
+\end{enumerate}
+
+
+\chapter{$1\times 4$ 覆盖平面的计算}
+\section{Dimer覆盖平面方法}
+回顾$Kasteleyn$在文献$[$\citenjupr{Kasteleyn}$]$中对平面上的二次格用$dimer$覆盖所得覆盖方法数的巧妙计算。
+
+
+考虑平面上$m\times n$的长方形栅格$Q_{mn}$,用$dimer$去覆盖，每个$dimer$占据两个相连的单位方格。用点来表示一个栅格，即得一个覆盖为下图。用一组数字来
+表示每个点可以用两种方法：$(i,j),i=1,...,m;j=1,...,n$或$p=(j+1)m+i,i=1,...,m;j=1,...,n.$这样一个$dimer$水平放置就占据$(i,j)$和
+$(i+1,j)$两个点，竖直放置就占据$(i,j)$和$(i,j+1)$两个点，这样一个覆盖$C$就是一组数据对$(p_{1},p_{2})(p_{3},p_{4})(p_{5},p_{6})
+...(p_{mn-1},p_{mn})$,其中$(p_{i},p_{i+1})$为相连的两个点，反之，只要是这样的一组数，肯定也是一个覆盖。这样就得到了覆盖的表示方法。
+为了方便应用记$C_{0}=((1,1),(2,1))((3,1),(4,1))...((m-1,1),(m,1))((1,2,(2,2))...((m-1,n),(m,n))$称之为标准配置。如图(a)\\\\
+\epsfxsize=5cm\epsffile{a.eps}$ \hspace{10em}$  \epsfxsize=5cm\epsffile{b.eps}
+
+
+\ \ \ \ \ \ \ \ $(a)\hspace{22em}(b)$
+
+
+为了一种覆盖只有一种表示，要求$C$满足$p_{1}<p_{2},p_{3}<p_{4},...,p_{mn-1}<p_{mn}(1) p_{1}<p_{3}<...<p_{mn-1}(2)$.
+这刚好是与$pfaffian$相对应。令$mn=N$,下面将看到给一个$N\times N$反称矩阵适当赋值，要计算的覆盖数敲好为$pf(A)$。
+
+
+从覆盖数的角度来看对矩阵$A$的要求，如果$C=(p_{1},p_{2})(p_{3},p_{4})...(p_{N-1},p_{N})$是一个覆盖，则要求矩阵元素$a_{p_{1}p_{2}}
+,a_{p_{3}p_{4}},...,a_{p_{N-1}p_{N}}$相乘后为$sgn(p_{1}p_{2}...p_{N-1}p_{N})$,如果不是覆盖，相乘后为$0$。
+
+
+下面来看如何给$a_{ij}$赋值，如图$b$，$C_{0}=(p_{1},p_{2}),(p_{3},p_{4}),C=(p_{1},p_{3})(p_{2},p_{4}),$\\
+$C_{0}$与$C$围成一个封闭的路线。按照如下顺序将$C_{0}$变换到$C$。$p_{1},p_{2},p_{3},p_{4}\dashrightarrow p_{1},p_{2},p_{4},p_{3}$(将点的顺序按逆时针顺序重排)$\dashrightarrow p_{2},p_{4},p_{3},p_{1}$(将封闭路线上的点向前推进一格)$\dashrightarrow p_{2},p_{4},p_{1},p_{3}$(将点按照$C$满足的条件(1)进行排序)$\dashrightarrow p_{1},p_{3},p_{2},p_{4}$(将点按照$C$满足的条件(2)进行排序)。计算表明$sgn(p_{1}p_{3}p_{2}p_{4})=-1$。
+
+
+对于一般的情形，考虑$C_{0}$与$C$围成的封闭路线，当点列按逆时针旋转中向前与向后的点个数相等记为$r$，那么$C$边界的向前与向后也都是$r$
+。这样按照上面简单例子的顺序来变换，$1).$将$r$对向后排列进行反转，$2).$向前推进一格过渡到$C$边界情形，$3).$按照$C$最终的条件
+$(1)$将$r$对不合要求的点进行反转，$4).$按照$C$最终的条件
+$(2)$将$r$对成组的点进行重排。这样得到的最终符号为$(-1)^{r}(-1)^{4r-1}(-1)^{r}=-1$。
+
+
+  $C_{0}$与$C$交错形成的封闭路线可以划分成$C_{0}-$边界与$C-$边界重合的一类与$C_{0}$与$C$围成封闭路线一类，两类之间没有公共点，而且在两
+  类内部，也就是说，不同封闭路线之间，不同的重合对之间都不会有公共点。从$C_{0}$排列到$C$排列的变换先按照顺序将形成的封闭路线的那些点移
+  动到一起，然后再像上面提到的四步来变换，最终调整封闭路线上的那些元素其满足条件(2),就可以达到从$C_{0}$到$C$的变换，由于一对相邻的元素
+  在排列中移动，不会引起排列的符号变化，所以排列$C$的符号就等于$-1$的那些封闭路线个数次幂。给$a_{ij}$赋以$\pm1$，使得每个封闭路线产生一
+  个负号，那么问题就解决了。由于$C_{0}-$边界与$C-$边界是交替出现的，把封闭路线按照横向单位条状划分，得到的每个条中必然含有奇数个方块，而
+  且这些条共有奇数个，因此封闭路线中一点包含奇数个方块。容易看到竖直方向上，$C-$边界的一半数目是一个奇数，这样令$A$中的元素
+  $a_{p_{1}p_{2}}(p_{1}<p_{2})$为\\
+
+  $a_{(i,j;i+1,j)}=1,1\leq i \leq m-1,1\leq j\leq n$\\
+
+   $a_{(i,j;i,j+1)}=(-1)^{i},1\leq i \leq m,1\leq j\leq n-1$\\
+
+    $a_{(i,j;i+1,j)}=0,$其它
+
+
+    这样就得到了矩阵$A$，通过公式$det(A)=pf^{2}(A)$，只要计算$det(A)$就可以了。对矩阵行列式的计算已经有一套非常有效的方法了，所以问题得到了
+    很好的解决。
+    \section{推广}
+
+    是否可以沿着这种方法把问题推广到更一般的情形呢？比如用$1 \times 4$或者$1\times 6$的块去覆盖长方形，覆盖方法数是多少呢？下面本文设法对$1\times 4$覆盖长方形进行讨论。
+
+    把问题转化成取每个小方块中点，把一个$1\times 4$ $tetramer$转化为长为3的直线段。$C=(p_{1},p_{2},p_{3},p_{4})(p_{5},p_{6},p_{7},p_{8})...(p_{N-3},p_{N-2},p_{N-1},p_{N})$.\\
+    其中$(p_{j},p_{j+1},p_{j+2},p_{j+3}),j=4k+1 (k=0,1,...)$为一个$tetramer$的四个连续点。为了一种覆盖对应与一种表示要求满足
+
+
+    $p_{1}<p_{2}<p_{3}<p_{4},p_{5}<p_{6}<p_{7}<p_{8}
+   ,...,p_{N-3}<p_{N-2}<p_{N-1}<p_{N}(1)$
+
+
+   $p_{1}<p_{5}<...<p_{N-3}(2)$\\
+   这样的排列与$pfaffian$的排列不同，所以不再能用$pfaffian$来计算了。但是从形式上看这些排列与$pfaffian$要求的排列又很相似，只是
+   作为一个小组的数字个数由2变成了4，$\sum\limits_{\sigma=p_{1}p_{2}...p_{N}satisfy(1)(2)}sgn\sigma a_{p_{1}p_{2}p_{3}p_{4}}a_{p_{5}p_{6}p_{7}p_{8}}...a_{p_{N-3}p_{N-2}p_{N-1}p_{N}}$，对于覆盖单项取值为1否则为0。
+   为了给每个$a_{ijkl}$赋值，将每个覆盖对应一个$dimer$覆盖，假设$dimer$覆盖的矩阵为$(a_{ij})$，那么只要让$a_{ijkl}=a_{ij}a_{kl}$
+   即可。所以得到
+
+
+   $a_{(i,j;i+1,j;i+2,j;i+3,j)}=1,1\leq i \leq m-3,1\leq j\leq n$
+
+
+   $a_{(i,j;i,j+1;i,j+2;i,j+3)}=(-1)^{i},1\leq i \leq m,1\leq j\leq n-3$
+
+
+   $a_{(i,j;i^{'},j^{'};i^{''},j^{''};i^{'''},j^{'''})}=0,$其它\\
+   为了得到每个下标变量都是从$1$到$N$的$a_{ijkl}$,令$a_{jikl}=-a_{ijkl},a_{kjil}=-a_{ijkl},a_{ljki}=-a_{ijkl}$。这样得到的
+   $(a_{ijkl}),1\leq i,j,k,l \leq N$仍然称之为矩阵，为了区别于一般的矩阵概念，这里引入内维数和外维数概念，内维数为小组成员个数，外维数即指下标变量的个数$N$。
+   而把上述求值仍称为$pf(A)$。
+
+
+   期望$A$对应于一个值，和$pf(A)$有关系类似于内维数为2的矩阵和它的$pfaf-
+   fian$的关系。怎样定义这个值是合理的？
+
+
+   这里定义$det(A)=\sum\limits_{\sigma,\tau,\gamma}sgn\sigma sgn\tau sgn\gamma a_{1\sigma(1)\tau(1)\gamma(1)}a_{2\sigma(2)\tau(2)\gamma(2)}...a_{N\sigma(N)\tau(N)\gamma(N)}$\\
+   可以证明这样定义的$det(A)$关于任意一个下标作为主序结果是相等的，下面证明之。
+
+
+   证明：$\sum\limits_{\sigma,\tau,\gamma}sgn\sigma sgn\tau sgn\gamma a_{1\sigma(1)\tau(1)\gamma(1)}a_{2\sigma(2)\tau(2)\gamma(2)}...a_{N\sigma(N)\tau(N)\gamma(N)}$
+
+
+   $\hspace{2em}$$=\sum\limits_{\sigma,\tau,\gamma}sgn\sigma sgn\tau sgn\gamma a_{\sigma^{-1}(1)1\tau\sigma^{-1}(1)\gamma\sigma(1)}a_{\sigma^{-1}(2)2\tau\sigma^{-1}(2)\gamma\sigma(2)}...$
+
+   $\hspace{3em}$$a_{\sigma^{-1}(N)N\tau\sigma^{-1}(N)\gamma\sigma(N)}$
+
+
+   $\hspace{2em}$$=\sum\limits_{\sigma^{'},\tau^{'},\gamma^{'}}sgn\sigma^{'}sgn\tau^{'}sgn\sigma^{'}sgn\gamma^{'}sgn\sigma^{'} a_{\sigma^{'}(1)1\tau^{'}(1)\gamma^{'}(1)}a_{\sigma^{'}(2)2\tau^{'}(2)\gamma^{'}(2)}...$
+
+   $\hspace{3em}$$a_{\sigma^{'}(N)N\tau^{'}(N)\gamma^{'}(N)}$
+
+
+   $\hspace{2em}$$=\sum\limits_{\sigma^{'},\tau^{'},\gamma^{'}}sgn\sigma^{'}sgn\tau^{'}sgn\gamma^{'} a_{\sigma^{'}(1)1\tau^{'}(1)\gamma^{'}(1)}a_{\sigma^{'}(2)2\tau^{'}(2)\gamma^{'}(2)}...
+   a_{\sigma^{'}(N)N\tau^{'}(N)\gamma^{'}(N)}$即证。\\
+
+
+   这样定义的$det(A)$与$pf(A)$之间会有类似于内维数为2的等价关系吗？
+   首先来看，普通矩阵即内维数为2的反称矩阵$A$,$det(A)=pf^{2}(A)$\\\\
+   证明 \\
+   法一：首先易得$pf(A)=\sum\limits_{j=2}^{n}(-1)^{j}a_{1j}pf(A_{\hat{1}\hat{j}})$.\\\\
+   下证$\sqrt{det(A)}=
+   \sum\limits_{j=2}^{n}(-1)^{j}a_{1j}\sqrt{det(A_{\hat{1}\hat{j}}}$.
+   $\det(A) = \sum_j a_{ij}C_{ij}$,这里$C_{ij}=(-1)^{i+j}det($
+   $A_{ij})$是代数余子式$\det(A \times \operatorname{adj}(A))=\det(A)^n$.\\\\\\
+   $\det\left( \begin{array}{cccc} 1\ 0\ \cdots\ 0\\
+                                   0\ 1\ \cdots\ 0\\
+                    a_{31}a_{32}\cdots a_{3n}\\
+                     \cdots \cdots\cdots\cdots\\
+       a_{n1}a_{n2}\cdots a_{nn}\end{array} \right)
+\times
+\det \left( \begin{array}{cccc}C_{11}C_{21}\cdots C_{n1}\\
+                    C_{12}C_{22}\cdots C_{n2}\\
+                    C_{13}C_{23}\cdots C_{n3}\\
+                    \cdots\cdots\cdots\cdots\\
+  C_{1n}C_{2n}\cdots C_{nn}\end{array} \right)
+= \det\left( \begin{array}{cc} C_{11}\ C_{21}\\C_{12}\ C_{22}\end{array} \right) \det(A)^{n-2}$\\\\\\\\
+因此，$\det(A_{12, 12})\det(A)^{n-1} = \det \left( \begin{array}{cc}
+                                             C_{11}\ C_{21}\\
+                                             C_{12}\ C_{22}
+                                              \end{array} \right) \det(A)^{n-2}$.$det(A)\neq 0$\\\\
+                                              这里$A_{12, 12}$是$A$删除前两行前两列的$(n-2)\times (n-2)$的余子式。\\\\
+                                              一般的$C_{ii}C_{jj} - C_{ij}C_{ji} = \det(A_{ij,ij})\det(A)$.\\\\
+                                              这里$n$是偶数并且$A$是反称矩阵，因此$det(A_{ii})=0$\\\\
+                                              而$C_{ij} = (-1)^{n-1}C_{ji} = -C_{ji}$，\\
+                                              \\因此得到$C_{ij}^2 = \det(A_{ij,ij})\det(A)$,\\\\
+                                              开根号后得到$C_{ij} = sign(C_{ij}) \sqrt{\det(A_{ij,ij})\det(A)}$\\\\
+                                              $\det(A) = \sum_j a_{ij}sign(C_{ij})\sqrt{\det(A_{ij,ij})\det(A)}$\\\\
+                                              即得$ \sqrt{\det(A)} = \sum_j a_{ij}sign(C_{ij})\sqrt{\det(A_{ij,ij})}$，即证。\\\\
+法二：$det(A)=\sum\limits_{\sigma}sgn\sigma a_{1\sigma(1)}a_{2\sigma(2)}...a_{n\sigma(n)}$.\\
+$\hspace{2em}$$\sigma=(i_{1}...i_{s_{1}})(i_{s_{1}+1}...i_{s_{2}})...(i_{s_{k-1}+1}...i_{s_{k}})=\alpha_{1}\alpha_{2}
+...\alpha_{k}$，
+考虑$A$是反称矩阵，可以将$det(A)$的求和一些乘积单项进行合并。显然这些项当且仅当乘积项对应的排列$\beta_{1}\beta_{2}
+...\beta_{k}$其中$\beta_{i}$为$\alpha_{i}$或者$\alpha_{i}^{-1}$。\\
+因此，当$\sigma$中含有奇轮换时，其对应的乘积项相消。\\
+而当$\sigma$中不含有奇轮换时，其对应的系数为$2^{t}$。\\
+另一方面，$pf^{2}(A)$中的单项$a_{1]\sigma(1)}a_{2}\sigma(2)...a_{n\sigma(n)}$来源于前后两个乘积和项。$\left( \begin{array}{cccc}i_{1}i_{2}...i_{s_{1}-1}i_{s_{1}}\\
+i_{2}i_{3}...i_{s_{1}}i_{1}\end{array} \right)$只能分拆成两组$\{(i_{1}i_{2}),(i_{3}i_{4}),...,(i_{s_{1}-1}i_{s_{1}})\}$,
+$\{(i_{2}i_{3}),(i_{4}i_{5}),...,$
+$(i_{s_{1}}i_{1})\}$,则这两组下标出现于前后两项中的方法有两种。从而最终$\sigma$排列单项
+系数为$2^{t}$,因此就有$det(A)=pf^{2}(A)$。
+
+
+但是不幸的是这两种方法都不能很容易地推广为内维数为4的情形。实际上对于内维数为4的矩阵$A,det(A)\neq pf^{2}(A),det(A)\neq pf^{4}(A)$，即证。
+
+
+下面对一些特殊情形进行讨论：
+\begin{enumerate}
+\item 内维数$=4$,外维数$=4:$
+
+ $\hspace{2em}$$det(A)=\sum\limits_{\sigma,\tau,
+\gamma}sgn\sigma sgn\tau sgn\gamma a_{1\sigma(1)\tau(1)\gamma(1)}a_{2\sigma(2)\tau(2)\gamma(2)}a_{3\sigma(3)\tau(3)\gamma(3)}a_{4\sigma(4)\tau(4)\gamma(4)}$\\
+将每个乘积单项下标表达成矩阵形式\\
+
+即$\hspace{4em}$ $\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+\sigma(1)\sigma(2)\sigma(3)\sigma(4)\\
+\tau(1)\tau(2)\tau(3)\tau(4)\\
+\gamma(1)\gamma(2)\gamma(3)\gamma(4)\end{array} \right)$，\\
+
+则矩阵的横向与纵向都是$1234$的一个排列,所以每个单项都是加一个正负号的$a_{1234}^{4}$.\\
+$\hspace{2em}$再来看每个单项的符号:\\
+
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+i_{1}i_{2}i_{3}i_{4}\\
+j_{1}j_{2}j_{3}j_{4}\\
+k_{1}k_{2}k_{3}k_{4}\end{array} \right) \dashrightarrow$
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \end{array} \right) $产生的符号为$sgn\sigma sgn\tau sgn\gamma$\\
+
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+i_{1}i_{2}i_{3}i_{4}\\
+j_{1}j_{2}j_{3}j_{4}\\
+k_{1}k_{2}k_{3}k_{4}\end{array} \right) \dashrightarrow$
+$\left( \begin{array}{cccc}1\ 1\ 1\ 1\ \\
+2\ 2\ 2\ 2\ \\
+3\ 3\ 3\ 3\ \\
+4\ 4\ 4\ 4\ \end{array}  \right)$产生的符号为$a_{i\sigma(i)\tau(i)\gamma(i)}\dashrightarrow a_{1234}$对所\\\\
+有$i$产生的符号乘积。\\
+
+而$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \\
+1\ 2\ 3\ 4\ \end{array} \right)\dashrightarrow$
+$\left( \begin{array}{cccc}1\ 1\ 1\ 1\ \\
+2\ 2\ 2\ 2\ \\
+3\ 3\ 3\ 3\ \\
+4\ 4\ 4\ 4\ \end{array} \right)$产生的符号为$1$。\\
+
+因此，每个乘积单项都是$a_{1234}^{4}$。\\
+
+$\hspace{2em}$下面按字典序将矩阵按照$i_{1}i_{2}i_{3}i_{4}j_{1}j_{2}j_{3}j_{4}k_{1}k_{2}k_{3}k_{4}$字典序排列，\\
+
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+2\ 1\ 4\ 3\ \\
+3\ 4\ 1\ 2\ \\
+4\ 3\ 2\ 1\ \end{array} \right)$,
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+2\ 1\ 4\ 3\ \\
+3\ 4\ 2\ 1\ \\
+4\ 3\ 1\ 2\ \end{array} \right)$,
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+2\ 1\ 4\ 3\ \\
+4\ 3\ 1\ 2\ \\
+3\ 4\ 2\ 1\ \end{array} \right)$,
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+2\ 1\ 4\ 3\ \\
+4\ 3\ 2\ 1\ \\
+3\ 4\ 1\ 2\ \end{array} \right)$,...,
+$\left( \begin{array}{cccc}1\ 2\ 3\ 4\ \\
+4\ 3\ 2\ 1\ \\
+3\ 4\ 1\ 2\ \\
+2\ 1\ 4\ 3\ \end{array} \right)$\\
+
+共24项，所以最终得到$det(A_{4}^{4})=4!pf^{4}(A_{4}^{4})$。
+
+
+\item 外维数为奇数的反称矩阵$A_{n}^{4}$:
+
+
+$\hspace{2em}$考虑标量矩阵$\hspace{4em}$$\left( \begin{array}{cccc}1\ 2\ 3\ ...\ n\\
+\sigma(1)\sigma(2)\sigma(3)...\sigma(n)\\
+\tau(1)\tau(2)\tau(3)...\tau(n)\\
+\gamma(1)\gamma(2)\gamma(3)...\gamma(n)\end{array}\right)$\\
+
+将$\sigma$写成轮换乘积，$\sigma=\alpha_{1}\alpha_{2}...\alpha_{t}$，则存在$\alpha_{r}$为奇数轮换。
+因此，\\$(1,\alpha_{1}\alpha_{2}...\alpha_{r-1}\alpha_{r}\alpha_{r+1}...\alpha_{t},\tau,\gamma)$对应项与
+$(1,\alpha_{1}\alpha_{2}...\alpha_{r-1}\alpha_{r}^{-1}\alpha_{r+1}...\alpha_{t},\tau,\gamma)$对应项相消，
+因此最终有$det(A_{n}^{4})=0$.
+
+
+\item 展望:
+
+$\hspace{2em}$对于4的倍数阶外维数的内维为4的矩阵，会与它的$pfaffian$之间有什么关系呢？如果确实有等价关系，将期望对新的形式
+矩阵寻求类似矩阵初等变换的变换，标准型，进而将这里的计算结果写成显式。
+
+$\hspace{2em}$更进一步可以考虑内维数为偶数的矩阵，它的行列式与$pfaffian$关系，以及行列式标准型等。
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 附件部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+
+% 参考文献
+% 使用 BibTeX，不使用 BibTeX 时注释掉下面一句。
+\bibliography{template}
+  % 致谢
+\begin{thanks}
+\vskip 18pt
+
+我非常荣幸在南京大学读了三年的研究生，正如南大的校训“淳朴敦厚，励学敦行”所言，这里的老师和学生身上都透着严谨，朴实，深厚
+的气息，学术气氛既自由又紧张，大家都在兢兢业业地专注于科研。在这里我学到了很多做人，做学问的道理。在这即将离开的日子回想起给予我无
+私帮助和共同学习奋斗的良师益友时，心里难免感慨万千。
+
+
+感念师恩，永记于心。首先，我要感谢我敬爱的导师郭学军教授。在学习上，导师渊博的学识和诲人不倦的态度不停地鞭策着我努力学习。
+在生活上，导师的宽厚与朴实风范感召我。在论文撰写过程中，郭老师在选题上，开题撰写过程中给予了细心的指导与提携。感谢一直以来
+您对我的谆谆教导和严格要求。涓涓师恩，铭记于心，只愿师生情谊一生延续。
+
+其次，要感谢秦厚荣，黄兆泳，孙智伟，丁南庆, 纪庆忠等老师们，正是在他们的付出和努力下才有数学系的良好学习氛围。
+同时，感谢杨云，黄丹丹等同门们，他们在学习上给予我
+很多帮助。
+
+
+最后，感谢父母这么多年的默默付出与支持。
+
+\end{thanks}
+
+
+\end{document}
